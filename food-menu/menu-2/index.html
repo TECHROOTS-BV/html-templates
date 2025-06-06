@@ -14,45 +14,50 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #fff8f0 0%, #fef7ed 100%);
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       color: #2d3748;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     .menu-container {
       max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      border-radius: 16px;
+      margin: 20px auto;
+      background: linear-gradient(145deg, #fefbf3 0%, #f8f4e6 100%);
+      box-shadow: 0 25px 80px rgba(0,0,0,0.3), 0 0 0 1px rgba(180, 134, 67, 0.2);
+      border-radius: 20px;
       overflow: hidden;
       position: relative;
+      border: 2px solid #b48643;
     }
 
     .header {
-      background: linear-gradient(135deg, #d53f3f 0%, #b91c1c 100%);
-      color: white;
+      background: linear-gradient(135deg, #8b4513 0%, #a0522d 25%, #d2691e 50%, #cd853f 75%, #b8860b 100%);
+      color: #fefbf3;
       padding: 40px 30px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      border-bottom: 3px solid #b48643;
     }
 
     .header::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-      opacity: 0.3;
-      animation: float 20s ease-in-out infinite;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+      animation: shimmer 8s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(2deg); }
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
     .logo {
@@ -61,10 +66,13 @@
       margin: 0 auto 20px;
       position: relative;
       z-index: 2;
-      background: white;
+      background: linear-gradient(145deg, #fefbf3, #f8f4e6);
       border-radius: 50%;
       padding: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.2),
+        inset 0 2px 4px rgba(255,255,255,0.1);
+      border: 3px solid #b48643;
     }
 
     .logo img {
@@ -81,27 +89,36 @@
       margin-bottom: 8px;
       position: relative;
       z-index: 2;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .header .tagline {
       font-size: 1.1rem;
       opacity: 0.95;
-      font-weight: 300;
+      font-weight: 400;
       position: relative;
       z-index: 2;
+      color: #fefbf3;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     .content {
       padding: 40px 30px;
+      background: linear-gradient(145deg, #fefbf3 0%, #f8f4e6 100%);
     }
 
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
-      color: #2d3748;
+      color: #8b4513;
       margin-bottom: 30px;
       text-align: center;
       position: relative;
+      font-weight: 600;
     }
 
     .section-title::after {
@@ -110,10 +127,11 @@
       bottom: -8px;
       left: 50%;
       transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #d53f3f, #f56565);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #b48643, #d2691e, #b48643);
       border-radius: 3px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .menu-grid {
@@ -123,30 +141,32 @@
     }
 
     .menu-item {
-      background: #fafafa;
-      border-radius: 12px;
+      background: linear-gradient(145deg, #ffffff 0%, #fefbf3 100%);
+      border-radius: 16px;
       padding: 24px;
-      transition: all 0.3s ease;
-      border: 1px solid #e2e8f0;
+      transition: all 0.4s ease;
+      border: 2px solid #e6d7c3;
       position: relative;
       overflow: hidden;
       display: grid;
       grid-template-columns: 140px 1fr;
       gap: 20px;
       align-items: start;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
     }
 
     .dish-image {
       width: 140px;
       height: 120px;
-      border-radius: 8px;
+      border-radius: 12px;
       object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transition: transform 0.4s ease;
+      border: 2px solid #d2691e;
     }
 
     .menu-item:hover .dish-image {
-      transform: scale(1.05);
+      transform: scale(1.05) rotate(1deg);
     }
 
     .item-content {
@@ -160,10 +180,10 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #d53f3f, #f56565);
+      height: 5px;
+      background: linear-gradient(90deg, #b48643, #d2691e, #cd853f, #b8860b);
       transform: scaleX(0);
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
     }
 
     .menu-item:hover::before {
@@ -171,9 +191,12 @@
     }
 
     .menu-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-      background: white;
+      transform: translateY(-4px);
+      box-shadow:
+        0 20px 40px rgba(139, 69, 19, 0.2),
+        0 0 0 1px rgba(180, 134, 67, 0.3);
+      background: linear-gradient(145deg, #ffffff 0%, #fefbf3 100%);
+      border-color: #b48643;
     }
 
     .item-header {
@@ -187,32 +210,41 @@
     .item-name {
       font-size: 1.25rem;
       font-weight: 600;
-      color: #2d3748;
+      color: #8b4513;
       flex: 1;
+      font-family: 'Playfair Display', serif;
     }
 
     .vegetarian {
-      background: #48bb78;
+      background: linear-gradient(135deg, #228b22 0%, #32cd32 100%);
       color: white;
       font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-weight: 600;
       flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(34, 139, 34, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .item-price {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #d53f3f;
+      background: linear-gradient(45deg, #b8860b, #daa520);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin: 8px 0;
+      font-family: 'Playfair Display', serif;
     }
 
     .item-description {
-      color: #4a5568;
+      color: #5d4e37;
       font-size: 0.95rem;
-      line-height: 1.5;
+      line-height: 1.6;
       margin-bottom: 16px;
+      font-weight: 400;
     }
 
     .item-includes {
@@ -222,19 +254,22 @@
     }
 
     .include-tag {
-      background: #e2e8f0;
-      color: #4a5568;
+      background: linear-gradient(135deg, #f4e4c1 0%, #e6d7c3 100%);
+      color: #8b4513;
       font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 16px;
+      padding: 6px 12px;
+      border-radius: 20px;
       font-weight: 500;
+      border: 1px solid #d2691e;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .footer {
-      background: #f7fafc;
+      background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
       padding: 30px;
       text-align: center;
-      border-top: 1px solid #e2e8f0;
+      border-top: 3px solid #b48643;
+      color: #fefbf3;
     }
 
     .contact-info {
@@ -250,34 +285,45 @@
       align-items: center;
       gap: 8px;
       font-size: 0.9rem;
-      color: #4a5568;
+      color: #f8f4e6;
+      font-weight: 500;
     }
 
     .website {
       font-weight: 600;
-      color: #d53f3f;
+      color: #ffd700;
       text-decoration: none;
       font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .website:hover {
+      color: #ffed4e;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
     }
 
     .deals-note {
-      background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-      border: 1px solid #feb2b2;
-      border-radius: 8px;
-      padding: 16px;
+      background: linear-gradient(135deg, #fff8dc 0%, #f5e6d3 100%);
+      border: 2px solid #d2691e;
+      border-radius: 12px;
+      padding: 20px;
       margin: 30px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
     }
 
     .deals-note h3 {
-      color: #c53030;
+      color: #8b4513;
       margin-bottom: 8px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
     }
 
     .deals-note p {
-      color: #4a5568;
-      font-size: 0.9rem;
+      color: #5d4e37;
+      font-size: 0.95rem;
+      font-weight: 500;
     }
 
     @media print {
@@ -327,6 +373,25 @@
         margin: 0 auto;
       }
     }
+
+    /* Add decorative elements */
+    .menu-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #b48643, #d2691e, #cd853f, #b8860b, #b48643);
+      border-radius: 22px;
+      z-index: -1;
+      animation: borderGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes borderGlow {
+      0% { opacity: 0.5; }
+      100% { opacity: 0.8; }
+    }
   </style>
 </head>
 <body>
@@ -334,7 +399,7 @@
   <div class="header">
     <div class="logo">
       <!-- Replace "logo-placeholder.jpg" with your actual logo file -->
-      <img src="logo.png" alt="Love Me Kitchen Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:24px;font-weight:bold;color:#d53f3f;\'>LM</div>'">
+      <img src="../logo.png" alt="Love Me Kitchen Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:24px;font-weight:bold;color:#8b4513;\'>LM</div>'">
     </div>
     <h1>Love Me Indian Kitchen</h1>
     <p class="tagline">Authentic Indian Flavors • Fresh Daily • Quick Service</p>
@@ -342,12 +407,12 @@
 
   <div class="content">
     <div class="section-title">Lunch Bowl Deals</div>
-    <p style="text-align: center; margin-bottom: 30px; color: #4a5568; font-style: italic;">Each bowl includes: Basmati Rice + Fresh Chapatti + Garden Salad + Soft Drink</p>
+    <p style="text-align: center; margin-bottom: 30px; color: #5d4e37; font-style: italic; font-weight: 500;">Each bowl includes: Basmati Rice + Fresh Chapatti + Garden Salad + Soft Drink</p>
 
     <div class="menu-grid">
       <div class="menu-item">
         <!-- Replace with your actual chicken tikka masala image -->
-        <img src="chicken-tikka.png" alt="Chicken Tikka Masala" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjRDUzRjNGIiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjRDUzRjNGIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
+        <img src="../chicken-tikka.png" alt="Chicken Tikka Masala" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjRDUzRjNGIiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjRDUzRjNGIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
         <div class="item-content">
           <div class="item-header">
             <div class="item-name">Chicken Tikka Masala Bowl</div>
@@ -365,7 +430,7 @@
 
       <div class="menu-item">
         <!-- Replace with your actual paneer butter masala image -->
-        <img src="paneer-butter.png" alt="Paneer Butter Masala" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjNDhCQjc4IiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDhCQjc4Ij4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
+        <img src="../paneer-butter.png" alt="Paneer Butter Masala" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjNDhCQjc4IiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDhCQjc4Ij4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Glc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
         <div class="item-content">
           <div class="item-header">
             <div class="item-name">Paneer Butter Masala Bowl</div>
@@ -384,7 +449,7 @@
 
       <div class="menu-item">
         <!-- Replace with your actual lamb tikka masala image -->
-        <img src="lamb-tikka.png" alt="Lamb Tikka Masala" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjQjkxQzFDIiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjQjkxQzFDIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
+        <img src="../lamb-tikka.png" alt="Lamb Tikka Masala" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjQjkxQzFDIiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjQjkxQzFDIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
         <div class="item-content">
           <div class="item-header">
             <div class="item-name">Lamb Tikka Masala Bowl</div>
@@ -402,7 +467,7 @@
 
       <div class="menu-item">
         <!-- Replace with your actual chicken neelgiri image -->
-        <img src="chiken-neelgiri.png" alt="Chicken Neelgiri" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjMzg5MjUxIiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzg5MjUxIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
+        <img src="../chiken-neelgiri.png" alt="Chicken Neelgiri" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjMzg5MjUxIiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzg5MjUxIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
         <div class="item-content">
           <div class="item-header">
             <div class="item-name">Chicken Neelgiri Bowl</div>
@@ -420,7 +485,7 @@
 
       <div class="menu-item">
         <!-- Replace with your actual aloo mutter paneer image -->
-        <img src="aloo-mutter.png" alt="Aloo Mutter Paneer" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjNDhCQjc4IiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDhCQjc4Ij4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
+        <img src="../aloo-mutter.png" alt="Aloo Mutter Paneer" class="dish-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDE0MCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRjdGQUZDIi8+CjxjaXJjbGUgY3g9IjcwIiBjeT0iNjAiIHI9IjMwIiBmaWxsPSIjNDhCQjc4IiBvcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSI1NSIgeT0iNDUiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDhCQjc4Ij4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIi8+Cjwvc3ZnPgo8L3N2Zz4K'">
         <div class="item-content">
           <div class="item-header">
             <div class="item-name">Aloo Mutter Paneer Bowl</div>
@@ -438,11 +503,11 @@
       </div>
 
       <div class="section-title">Love Me Rolls</div>
-      <p style="text-align: center; margin-bottom: 30px; color: #4a5568; font-style: italic;">All rolls come with a soft drink included</p>
+      <p style="text-align: center; margin-bottom: 30px; color: #5d4e37; font-style: italic; font-weight: 500;">All rolls come with a soft drink included</p>
 
       <div class="menu-grid">
         <div class="menu-item">
-          <img src="chicken-roll.png" alt="Love Me Chicken Roll" class="dish-image">
+          <img src="../chicken-roll.png" alt="Love Me Chicken Roll" class="dish-image">
           <div class="item-content">
             <div class="item-header">
               <div class="item-name">Love Me Chicken Roll</div>
@@ -459,48 +524,11 @@
         </div>
 
         <div class="menu-item">
-          <img src="veggie-roll.png" alt="Love Me Veggie Roll" class="dish-image">
+          <img src="../veggie-roll.png" alt="Love Me Veggie Roll" class="dish-image">
           <div class="item-content">
             <div class="item-header">
               <div class="item-name">Love Me Veggie Roll</div>
               <span class="vegetarian">VEGETARIAN</span>
             </div>
             <div class="item-price">€7.99</div>
-            <div class="item-description">Delicious naan wrap packed with seasoned mixed vegetables, paneer, fresh salad, and cheese. Includes a soft drink.</div>
-            <div class="item-includes">
-              <span class="include-tag">Mixed Vegetables</span>
-              <span class="include-tag">Paneer</span>
-              <span class="include-tag">Cheese</span>
-              <span class="include-tag">Soft Drink</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="deals-note">
-      <h3>🕐 Quick Lunch Service</h3>
-      <p>Perfect for busy office workers! Ready in 10-15 minutes • Available 11:00 AM - 2:00 PM</p>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="contact-info">
-      <div class="contact-item">
-        <span>📍</span>
-        <span>Avenue des Anciens Combattants 87, 1950 Kraainem</span>
-      </div>
-      <div class="contact-item">
-        <span>📞</span>
-        <span>0477 477 707</span>
-      </div>
-      <div class="contact-item">
-        <span>🕒</span>
-        <span>11:00 AM - 2:00 PM</span>
-      </div>
-    </div>
-    <a href="https://www.lovemekitchen.be" class="website">www.lovemekitchen.be</a>
-  </div>
-</div>
-</body>
-</html>
+            <div class="item-description">Delicious naan wrap packed with seasoned mixed vegetables, paneer, fresh salad, an
