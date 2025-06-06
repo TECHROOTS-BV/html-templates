@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Love Me Indian Kitchen - Compact Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fff8f0 0%, #fef7ed 100%);
+            color: #2d3748;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .menu-container {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(to right, #e63946, #d7263d);
+            color: white;
+            padding: 14px 10px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            margin: 6px 0;
+        }
+
+        .header .tagline {
+            font-size: 11px;
+            opacity: 0.95;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 15px;
+            margin: 16px 0 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
+        }
+
+        .subtext {
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .menu-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+        }
+
+        .menu-item {
+            display: flex;
+            width: 48%;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            background: #fdfdfd;
+        }
+
+        .menu-item img {
+            width: 60px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .item-price {
+            color: #d53f3f;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .item-description {
+            font-size: 11px;
+            color: #444;
+            margin: 4px 0;
+        }
+
+        .item-includes {
+            font-size: 10px;
+            color: #555;
+        }
+
+        .vegetarian {
+            font-size: 10px;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+            margin-top: 20px;
+        }
+
+        .footer div {
+            margin-bottom: 4px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .menu-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="menu-container">
+    <div class="header">
+        <div class="logo" style="
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+">
+            <img src="../logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;" />
+        </div>
+        <h1>Love Me Indian Kitchen</h1>
+        <p class="tagline">Authentic Indian Flavors • Fresh Daily • Quick Service</p>
+    </div>
+
+    <div class="section-title">Lunch Bowl Deals</div>
+    <div class="subtext">Includes: Basmati Rice • Chapatti • Salad • Soft Drink</div>
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="../chicken-tikka.png" alt="Chicken Tikka" />
+            <div class="item-content">
+                <div class="item-name">Chicken Tikka Bowl</div>
+                <div class="item-price">€10.99</div>
+                <div class="item-description">Chicken in tomato cream sauce.</div>
+                <div class="item-includes">Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="../paneer-butter.png" alt="Paneer Butter" />
+            <div class="item-content">
+                <div class="item-name">Paneer Butter Bowl <span class="vegetarian">(V)</span></div>
+                <div class="item-price">€9.99</div>
+                <div class="item-description">Paneer in buttery tomato gravy.</div>
+                <div class="item-includes">Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="../lamb-tikka.png" alt="Lamb Tikka" />
+            <div class="item-content">
+                <div class="item-name">Lamb Tikka Bowl</div>
+                <div class="item-price">€11.99</div>
+                <div class="item-description">Lamb in tikka masala sauce.</div>
+                <div class="item-includes">Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="../chiken-neelgiri.png" alt="Chicken Neelgiri" />
+            <div class="item-content">
+                <div class="item-name">Chicken Neelgiri Bowl</div>
+                <div class="item-price">€10.49</div>
+                <div class="item-description">Green herb chicken curry.</div>
+                <div class="item-includes">Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="../aloo-mutter.png" alt="Aloo Mutter Paneer" />
+            <div class="item-content">
+                <div class="item-name">Aloo Mutter Paneer <span class="vegetarian">(V)</span></div>
+                <div class="item-price">€9.49</div>
+                <div class="item-description">Potatoes, peas & paneer curry.</div>
+                <div class="item-includes">Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Love Me Rolls</div>
+    <div class="subtext">Includes: Soft Drink</div>
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="../chicken-roll.png" alt="Chicken Roll" />
+            <div class="item-content">
+                <div class="item-name">Love Me Chicken Roll</div>
+                <div class="item-price">€8.99</div>
+                <div class="item-description">Wrap with chicken, salad & cheese.</div>
+                <div class="item-includes">Soft Drink</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="../veggie-roll.png" alt="Veggie Roll" />
+            <div class="item-content">
+                <div class="item-name">Love Me Veggie Roll <span class="vegetarian">(V)</span></div>
+                <div class="item-price">€7.99</div>
+                <div class="item-description">Wrap with vegetables, paneer, cheese.</div>
+                <div class="item-includes">Soft Drink</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>📍 Avenue des Anciens Combattants 87, 1950 Kraainem</div>
+        <div>📞 0477 477 707</div>
+        <div>🕒 11:00 AM - 2:00 PM</div>
+        <div>🌐 <a href="https://www.lovemekitchen.be">www.lovemekitchen.be</a></div>
+    </div>
+</div>
+</body>
+</html>
