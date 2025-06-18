@@ -135,7 +135,7 @@
             body {
                 margin: 0;
                 padding: 0;
-                zoom: 1.6;
+                zoom: 0.68; /* Shrink to fit A6 layout */
             }
 
             .menu-container {
@@ -143,27 +143,75 @@
                 border: none;
                 margin: 0;
                 max-width: 100%;
-                padding: 0.5cm;
+                padding: 0.4cm;
                 page-break-inside: avoid;
             }
 
             .header {
-                padding: 14px;
+                padding: 10px;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+                padding: 3px;
+            }
+
+            .header h1 {
+                font-size: 16px;
+            }
+
+            .tagline {
+                font-size: 10px;
+            }
+
+            .section-title {
+                font-size: 13px;
+                margin: 12px 0 6px;
             }
 
             .menu-grid {
-                gap: 6px;
+                flex-direction: column;
+                gap: 4px;
             }
 
             .menu-item {
-                padding: 6px;
+                flex-direction: row;
+                width: 100%;
+                padding: 5px;
+                font-size: 10px;
+            }
+
+            .menu-item img {
+                width: 50px;
+                height: 40px;
+                margin-right: 6px;
+            }
+
+            .item-details {
+                font-size: 10px;
+            }
+
+            .item-title {
+                font-size: 11px;
+            }
+
+            .item-price {
+                font-size: 10px;
+                margin: 2px 0;
+            }
+
+            .item-desc {
+                font-size: 9px;
             }
 
             .footer {
-                margin-top: 12px;
-                padding-top: 6px;
+                font-size: 9px;
+                margin-top: 6px;
+                padding-top: 4px;
             }
         }
+
     </style>
 </head>
 <body>
@@ -223,7 +271,7 @@
             <div class="item-details">
                 <div class="item-title">Idli Sambar Bowl (V)</div>
                 <div class="item-price">€11.99</div>
-                <div class="item-desc">Idli(3) and Sambar</div>
+                <div class="item-desc">Soft steamed rice cakes (3) served with a flavorful South Indian lentil stew, Drink</div>
             </div>
         </div>
         <div class="menu-item">
@@ -231,7 +279,7 @@
             <div class="item-details">
                 <div class="item-title">Vada Sambar Bowl (V)</div>
                 <div class="item-price">€11.99</div>
-                <div class="item-desc">Vada(3) and Sambar</div>
+                <div class="item-desc">Crispy lentil doughnuts (3) paired with hot and aromatic sambar, Drink</div>
             </div>
         </div>
     </div>

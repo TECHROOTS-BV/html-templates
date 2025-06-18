@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Love Me Indian Kitchen - Compact Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefbf3;
+            color: #5d4e37;
+            line-height: 1.4;
+            padding: 10px;
+        }
+
+        .menu-container {
+            max-width: 900px;
+            margin: auto;
+            background: linear-gradient(145deg, #fefbf3 0%, #f8f4e6 100%);
+            border: 1px solid #b48643;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #8b4513, #d2691e);
+            padding: 20px;
+            border-radius: 8px;
+            color: #fefbf3;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: auto;
+            background: #fff;
+            border-radius: 50%;
+            padding: 6px;
+            border: 2px solid #b8860b;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 10px 0 5px;
+            color: #ffeb8e;
+        }
+
+        .tagline {
+            font-size: 13px;
+            color: #f8f4e6;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 20px;
+            color: #8b4513;
+            margin: 24px 0 12px;
+            border-bottom: 1px solid #b8860b;
+        }
+
+        .menu-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .menu-item {
+            display: flex;
+            width: 48%;
+            background: #fffef9;
+            border: 1px solid #e6d7c3;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(180, 134, 67, 0.1);
+        }
+
+        .menu-item img {
+            width: 70px;
+            height: 60px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 10px;
+            border: 1px solid #d2691e;
+        }
+
+        .item-details {
+            font-size: 13px;
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #8b4513;
+        }
+
+        .item-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #b8860b;
+            margin: 4px 0;
+        }
+
+        .item-desc {
+            color: #5d4e37;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #8b4513;
+            margin-top: 24px;
+            border-top: 1px solid #e6d7c3;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                zoom: 1.6;
+            }
+
+            .menu-container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                max-width: 100%;
+                padding: 0.5cm;
+                page-break-inside: avoid;
+            }
+
+            .header {
+                padding: 14px;
+            }
+
+            .menu-grid {
+                gap: 6px;
+            }
+
+            .menu-item {
+                padding: 6px;
+            }
+
+            .footer {
+                margin-top: 12px;
+                padding-top: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="menu-container">
+    <div class="header">
+        <div class="logo">
+            <img src="../../logo.png" alt="Love Me Logo" />
+        </div>
+        <h1>Love Me Indian Kitchen</h1>
+        <p class="tagline">Authentic Indian Flavors • Fresh Daily • Quick Service</p>
+    </div>
+
+    <div class="section-title">Lunch Bowl Deals</div>
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="../../chicken-tikka.png" alt="Chicken Tikka" />
+            <div class="item-details">
+                <div class="item-title">Chicken Tikka Bowl</div>
+                <div class="item-price">€14.99</div>
+                <div class="item-desc">Chicken in tomato cream sauce. Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../paneer-butter.png" alt="Paneer Butter" />
+            <div class="item-details">
+                <div class="item-title">Paneer Butter Bowl (V)</div>
+                <div class="item-price">€14.99</div>
+                <div class="item-desc">Paneer in buttery tomato gravy. Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../lamb-tikka.png" alt="Lamb Tikka" />
+            <div class="item-details">
+                <div class="item-title">Lamb Tikka Bowl</div>
+                <div class="item-price">€15.99</div>
+                <div class="item-desc">Lamb in tikka masala sauce. Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../chiken-neelgiri.png" alt="Neelgiri" />
+            <div class="item-details">
+                <div class="item-title">Chicken Neelgiri Bowl</div>
+                <div class="item-price">€14.99</div>
+                <div class="item-desc">Green herb chicken curry. Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../aloo-mutter.png" alt="Aloo Mutter" />
+            <div class="item-details">
+                <div class="item-title">Aloo Mutter Paneer Bowl (V)</div>
+                <div class="item-price">€13.99</div>
+                <div class="item-desc">Potatoes, peas & paneer curry. Rice, Chapatti, Salad, Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../idli-sambar.jpeg" alt="Idli Sambar" />
+            <div class="item-details">
+                <div class="item-title">Idli Sambar Bowl (V)</div>
+                <div class="item-price">€11.99</div>
+                <div class="item-desc">Soft steamed rice cakes (3) served with a flavorful South Indian lentil stew, Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../vada-sambar.jpeg" alt="Vada Sambar" />
+            <div class="item-details">
+                <div class="item-title">Vada Sambar Bowl (V)</div>
+                <div class="item-price">€11.99</div>
+                <div class="item-desc">Crispy lentil doughnuts (3) paired with hot and aromatic sambar, Drink</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Love Me Rolls</div>
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="../../chicken-roll.png" alt="Chicken Roll" />
+            <div class="item-details">
+                <div class="item-title">Love Me Chicken Roll</div>
+                <div class="item-price">€10.99</div>
+                <div class="item-desc">Wrap with chicken, salad & cheese. Soft Drink</div>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="../../veggie-roll.png" alt="Veggie Roll" />
+            <div class="item-details">
+                <div class="item-title">Love Me Veggie Roll (V)</div>
+                <div class="item-price">€10.99</div>
+                <div class="item-desc">Wrap with vegetables, paneer, cheese. Soft Drink</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Avenue des Anciens Combattants 87, 1950 Kraainem • ☎ 0477 477 707 • ⏰ 11:00 AM - 2:00 PM<br/>
+        <a href="https://www.lovemekitchen.be">www.lovemekitchen.be</a>
+    </div>
+</div>
+</body>
+</html>
