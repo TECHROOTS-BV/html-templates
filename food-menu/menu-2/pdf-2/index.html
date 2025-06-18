@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Love Me Indian Kitchen - Compact Menu</title>
     <style>
         * {
@@ -133,7 +133,35 @@
 
         @media print {
             body {
-                zoom: 1.1;
+                margin: 0;
+                padding: 0;
+                zoom: 1.6;
+            }
+
+            .menu-container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                max-width: 100%;
+                padding: 0.5cm;
+                page-break-inside: avoid;
+            }
+
+            .header {
+                padding: 14px;
+            }
+
+            .menu-grid {
+                gap: 6px;
+            }
+
+            .menu-item {
+                padding: 6px;
+            }
+
+            .footer {
+                margin-top: 12px;
+                padding-top: 6px;
             }
         }
     </style>
