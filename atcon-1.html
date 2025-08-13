@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATCON Global | Digital Transformation & IT Consulting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1E3A8A;
+            --secondary: #3B82F6;
+            --accent: #60A5FA;
+            --dark: #0F172A;
+            --darker: #020617;
+            --light: #FFFFFF;
+            --gray: #94A3B8;
+            --success: #10B981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--light);
+            background: var(--darker);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Canvas */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            border-radius: 5px;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease infinite;
+            filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 50px rgba(96, 165, 250, 0.8));
+            }
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 3px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            background-size: 200% 100%;
+            border-radius: 3px;
+            animation: loading 2s ease infinite, shimmer 2s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 80%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 25px 5%;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 15px 5%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            animation: expandWidth 1s ease forwards;
+        }
+
+        @keyframes expandWidth {
+            to { width: 100%; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            display: block;
+        }
+
+        .nav-links a:not(.contact-btn)::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:not(.contact-btn):hover::before {
+            width: calc(100% - 24px);
+        }
+
+        .nav-links a:not(.contact-btn):hover {
+            color: var(--accent);
+        }
+
+        .nav-links a.active:not(.contact-btn) {
+            color: var(--accent);
+        }
+
+        .nav-links a.active:not(.contact-btn)::before {
+            width: calc(100% - 24px);
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 10px 25px !important;
+            border-radius: 25px;
+            color: var(--light) !important;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            z-index: -1;
+            transition: left 0.5s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .contact-btn:hover::after {
+            left: 0;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 5% 80px;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .hero-content {
+            opacity: 0;
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 25px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-description {
+            font-size: 20px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--light);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            opacity: 0;
+            animation: slideInRight 1s ease 0.3s forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-cards {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .float-card {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9), rgba(59, 130, 246, 0.7));
+            border: 1px solid rgba(96, 165, 250, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            box-shadow:
+                    0 10px 40px rgba(0, 0, 0, 0.3),
+                    0 0 60px rgba(59, 130, 246, 0.2),
+                    inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            transform-style: preserve-3d;
+        }
+
+        .float-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .float-card:hover::before {
+            opacity: 1;
+        }
+
+        .float-card:hover {
+            box-shadow:
+                    0 20px 60px rgba(0, 0, 0, 0.4),
+                    0 0 80px rgba(59, 130, 246, 0.4),
+                    inset 0 0 30px rgba(255, 255, 255, 0.1);
+            transform: translateZ(20px) scale(1.05);
+        }
+
+        .float-card:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation: gentleFloat1 8s ease-in-out infinite;
+        }
+
+        .float-card:nth-child(2) {
+            top: 40%;
+            right: 10%;
+            animation: gentleFloat2 10s ease-in-out infinite;
+        }
+
+        .float-card:nth-child(3) {
+            bottom: 15%;
+            left: 25%;
+            animation: gentleFloat3 9s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat1 {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-15px) translateX(10px) rotate(2deg);
+            }
+            66% {
+                transform: translateY(10px) translateX(-5px) rotate(-1deg);
+            }
+        }
+
+        @keyframes gentleFloat2 {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(15px) translateX(-10px) rotate(-2deg);
+            }
+            66% {
+                transform: translateY(-10px) translateX(5px) rotate(1deg);
+            }
+        }
+
+        @keyframes gentleFloat3 {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-10px) translateX(-10px) rotate(1deg);
+            }
+            66% {
+                transform: translateY(15px) translateX(10px) rotate(-2deg);
+            }
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 5%;
+            background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 50%, var(--darker) 100%);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 25px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(59, 130, 246, 0.05));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.1));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+            position: relative;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .service-card:hover .service-icon {
+            animation: iconRotate 0.6s ease;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes iconRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .service-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .service-description {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 15px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-content {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.8s ease;
+        }
+
+        .about-visual {
+            position: relative;
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .about-visual.visible {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(59, 130, 246, 0.05));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        /* Approach Section */
+        .approach {
+            padding: 100px 5%;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 60px auto 0;
+        }
+
+        .approach-card {
+            background: rgba(30, 58, 138, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .approach-card.visible {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.6s ease;
+        }
+
+        .approach-number {
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .approach-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .approach-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .approach-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 30px;
+            padding: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--light);
+            padding: 18px 50px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 5%;
+            background: var(--darker);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--light);
+            transform: translateY(-5px);
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            text-align: center;
+            color: var(--gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                padding: 50px;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hero-container,
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .services-grid,
+            .approach-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Loading Screen -->
+<div class="loader" id="loader">
+    <div class="loader-content">
+        <div class="loader-logo">ATCON</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Animated Background Canvas -->
+<canvas id="canvas-bg"></canvas>
+
+<!-- Navigation -->
+<nav id="navbar">
+    <div class="nav-container">
+        <div class="logo">ATCON</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#contact" class="contact-btn">Contact Us</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-badge">WE PUT CUSTOMER FIRST</div>
+            <h1 class="hero-title">
+                Empowering Business with
+                <span class="gradient-text">Digital Transformation</span>
+            </h1>
+            <p class="hero-description">
+                Our motto is to surpass your expectations and provide best-in-class IT services.
+                We take your technology overhead and let you focus on growing your business.
+            </p>
+            <div class="hero-cta">
+                <a href="#services" class="btn btn-primary">
+                    Explore Services →
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    Get Started
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image-container">
+                <div class="floating-cards">
+                    <div class="float-card">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-title">Digital Innovation</div>
+                        <div class="card-desc">Transform your business</div>
+                    </div>
+                    <div class="float-card">
+                        <div class="card-icon">💡</div>
+                        <div class="card-title">Smart Solutions</div>
+                        <div class="card-desc">Intelligent automation</div>
+                    </div>
+                    <div class="float-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">Data Analytics</div>
+                        <div class="card-desc">Actionable insights</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <div class="section-header">
+        <div class="section-badge">OUR EXPERTISE</div>
+        <h2 class="section-title gradient-text">Specialized Services</h2>
+        <p class="section-subtitle">
+            ATCON is a young and global IT Consulting company headquartered in Belgium,
+            with a vision of empowering business using the latest technologies.
+        </p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">⚙️</div>
+            <h3 class="service-title">Business Process Automation</h3>
+            <p class="service-description">
+                Automate business processes within your organization and improve overall
+                effectiveness and efficiency with cutting-edge automation solutions.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">📈</div>
+            <h3 class="service-title">Enterprise Performance Management</h3>
+            <p class="service-description">
+                Implementation and deployment of financial consolidation, planning,
+                budgeting, & forecasting solutions tailored to your needs.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">💾</div>
+            <h3 class="service-title">Data Warehousing & BI</h3>
+            <p class="service-description">
+                Build comprehensive data warehousing and reporting solutions covering
+                ETL, data modeling, and data visualization.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🤖</div>
+            <h3 class="service-title">Advanced Analytics & AI</h3>
+            <p class="service-description">
+                Enhance your data-driven processes using Big Data, Machine Learning,
+                Predictive Analytics, Cloud Platforms, and much more.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">☁️</div>
+            <h3 class="service-title">Cloud Solutions</h3>
+            <p class="service-description">
+                Migrate and optimize your infrastructure with modern cloud platforms
+                for enhanced scalability and performance.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔒</div>
+            <h3 class="service-title">Cybersecurity</h3>
+            <p class="service-description">
+                Protect your digital assets with comprehensive security solutions
+                designed for the modern threat landscape.
+            </p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="about-container">
+        <div class="about-content">
+            <div class="section-badge">ABOUT ATCON</div>
+            <h2 class="section-title gradient-text">Your Technology Partner</h2>
+            <p class="section-subtitle">
+                We approach your challenges differently by being a solution-driven partner
+                instead of a technology one. Getting you the results is what matters the most.
+            </p>
+            <p class="hero-description" style="margin-top: 20px;">
+                We help you discover, assess, and implement digital solutions to automate
+                your business processes and make your data meaningful. Our team of experts
+                brings years of experience in delivering transformative solutions.
+            </p>
+            <div class="hero-cta" style="margin-top: 30px;">
+                <a href="#contact" class="btn btn-primary">Start Your Journey →</a>
+            </div>
+        </div>
+        <div class="about-visual">
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Countries Served</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">Success Rate %</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Approach Section -->
+<section class="approach" id="approach">
+    <div class="section-header">
+        <div class="section-badge">OUR APPROACH</div>
+        <h2 class="section-title gradient-text">How We Work</h2>
+        <p class="section-subtitle">
+            A systematic approach to deliver exceptional results
+        </p>
+    </div>
+    <div class="approach-grid">
+        <div class="approach-card">
+            <div class="approach-number">01</div>
+            <div class="approach-icon">🔍</div>
+            <h3 class="approach-title">Discover</h3>
+            <p class="approach-description">
+                We analyze your current processes and identify opportunities for
+                digital transformation and optimization.
+            </p>
+        </div>
+        <div class="approach-card">
+            <div class="approach-number">02</div>
+            <div class="approach-icon">📋</div>
+            <h3 class="approach-title">Assess</h3>
+            <p class="approach-description">
+                Comprehensive evaluation of your technology landscape and business
+                requirements to design the perfect solution.
+            </p>
+        </div>
+        <div class="approach-card">
+            <div class="approach-number">03</div>
+            <div class="approach-icon">🛠️</div>
+            <h3 class="approach-title">Implement</h3>
+            <p class="approach-description">
+                Deploy cutting-edge solutions with minimal disruption to your
+                operations while ensuring maximum efficiency.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <div class="section-header">
+        <div class="section-badge">GET IN TOUCH</div>
+        <h2 class="section-title gradient-text">Let's Start a Conversation</h2>
+        <p class="section-subtitle">
+            Fill the form below and our specialists will review and reach out to you as soon as possible
+        </p>
+    </div>
+    <div class="contact-container">
+        <form class="contact-form" id="contactForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="service">Service Interested In</label>
+                <input type="text" id="service" name="service" placeholder="e.g., Digital Transformation, Data Analytics">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="footer-logo">ATCON</div>
+            <p class="footer-description">
+                Empowering businesses through innovative technology solutions and
+                strategic consulting. Your success is our mission.
+            </p>
+            <div class="social-links">
+                <a href="#" class="social-link">f</a>
+                <a href="#" class="social-link">in</a>
+                <a href="#" class="social-link">tw</a>
+                <a href="#" class="social-link">ig</a>
+            </div>
+        </div>
+        <div class="footer-column">
+            <h4>Services</h4>
+            <ul class="footer-links">
+                <li><a href="#">Business Automation</a></li>
+                <li><a href="#">Data Analytics</a></li>
+                <li><a href="#">Cloud Solutions</a></li>
+                <li><a href="#">Cybersecurity</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Company</h4>
+            <ul class="footer-links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Partners</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Case Studies</a></li>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2024 ATCON Global. All rights reserved. | Privacy Policy | Terms of Service</p>
+    </div>
+</footer>
+
+<script>
+    // Loading Screen with smooth fade
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }, 2000);
+    });
+
+    // Enhanced Animated Background
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    class GlowParticle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height + Math.random() * 100;
+            this.size = Math.random() * 3 + 1;
+            this.speedY = -Math.random() * 1 - 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.opacity = 0;
+            this.targetOpacity = Math.random() * 0.5 + 0.2;
+            this.life = 0;
+            this.maxLife = Math.random() * 200 + 100;
+            this.hue = Math.random() * 60 + 200; // Blue to purple range
+        }
+
+        update() {
+            this.life++;
+
+            // Fade in and out
+            if (this.life < 20) {
+                this.opacity = (this.life / 20) * this.targetOpacity;
+            } else if (this.life > this.maxLife - 20) {
+                this.opacity = ((this.maxLife - this.life) / 20) * this.targetOpacity;
+            } else {
+                this.opacity = this.targetOpacity;
+            }
+
+            // Move particle
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // Add gentle wave motion
+            this.x += Math.sin(this.life * 0.01) * 0.3;
+
+            // Attract to mouse slightly
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 200) {
+                this.x += dx * 0.0002;
+                this.y += dy * 0.0002;
+            }
+
+            // Reset if particle is off screen or life ended
+            if (this.y < -50 || this.life > this.maxLife) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            // Create glow effect
+            const gradient = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.size * 4
+            );
+            gradient.addColorStop(0, `hsla(${this.hue}, 100%, 70%, ${this.opacity})`);
+            gradient.addColorStop(0.5, `hsla(${this.hue}, 100%, 60%, ${this.opacity * 0.5})`);
+            gradient.addColorStop(1, `hsla(${this.hue}, 100%, 50%, 0)`);
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size * 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw core
+            ctx.fillStyle = `hsla(${this.hue}, 100%, 90%, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    // Create flowing particles
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+        particles.push(new GlowParticle());
+    }
+
+    // Connection lines between nearby particles
+    function drawConnections() {
+        ctx.strokeStyle = 'rgba(96, 165, 250, 0.1)';
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 150) {
+                    ctx.globalAlpha = (1 - distance / 150) * 0.5 * particles[i].opacity * particles[j].opacity;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+                }
+            }
+        }
+    }
+
+    function animateBackground() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Update and draw particles
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+
+        // Draw connections
+        drawConnections();
+
+        animationId = requestAnimationFrame(animateBackground);
+    }
+    animateBackground();
+
+    // Navigation effects
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-links a:not(.contact-btn)');
+
+    // Scroll effect
+    let lastScrollY = 0;
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        // Update active nav link
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const id = section.getAttribute('id');
+            const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+
+            if (rect.top <= 100 && rect.bottom >= 100) {
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                if (link && !link.classList.contains('contact-btn')) {
+                    link.classList.add('active');
+                }
+            }
+        });
+
+        lastScrollY = currentScrollY;
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinksContainer = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        navLinksContainer.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+
+    // Smooth Scrolling with easing
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+
+            if (target) {
+                const targetPosition = target.offsetTop - 80;
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 1000;
+                let start = null;
+
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = currentTime - start;
+                    const run = ease(timeElapsed, startPosition, distance, duration);
+                    window.scrollTo(0, run);
+                    if (timeElapsed < duration) requestAnimationFrame(animation);
+                }
+
+                function ease(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t + b;
+                    t--;
+                    return -c / 2 * (t * (t - 2) - 1) + b;
+                }
+
+                requestAnimationFrame(animation);
+                navLinksContainer.classList.remove('active');
+            }
+        });
+    });
+
+    // Enhanced Intersection Observer with stagger
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+
+                // Stagger animation for service cards
+                if (entry.target.classList.contains('services-grid')) {
+                    const cards = entry.target.querySelectorAll('.service-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                            card.style.animation = 'slideUp 0.6s ease forwards';
+                        }, index * 100);
+                    });
+                }
+
+                // Stagger animation for approach cards
+                if (entry.target.classList.contains('approach-grid')) {
+                    const cards = entry.target.querySelectorAll('.approach-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                            card.style.animation = 'scaleIn 0.6s ease forwards';
+                        }, index * 150);
+                    });
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements
+    document.querySelectorAll('.section-header, .services-grid, .approach-grid, .about-content, .about-visual').forEach(el => {
+        fadeInObserver.observe(el);
+    });
+
+    // Smooth counter animation
+    const counters = document.querySelectorAll('.stat-number');
+    let counterStarted = false;
+
+    const animateCounter = (counter, target, duration = 2000) => {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += increment;
+            if (start < target) {
+                counter.innerText = Math.ceil(start);
+            } else {
+                counter.innerText = target;
+                clearInterval(timer);
+            }
+        }, 16);
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !counterStarted) {
+            counterStarted = true;
+            counters.forEach((counter, index) => {
+                setTimeout(() => {
+                    const target = +counter.getAttribute('data-target');
+                    animateCounter(counter, target);
+                }, index * 200);
+            });
+        }
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.about-stats');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+
+    // Form interaction
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        // Add floating label effect
+        const formInputs = contactForm.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.parentElement.classList.remove('focused');
+                }
+            });
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+
+            // Animate button
+            submitBtn.innerHTML = '<span style="display: inline-block; animation: spin 1s linear infinite;">⟳</span> Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.innerHTML = '✓ Message Sent Successfully!';
+                submitBtn.style.background = 'linear-gradient(135deg, #10B981, #34D399)';
+
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+
+                    // Remove focused class from all form groups
+                    contactForm.querySelectorAll('.focused').forEach(el => {
+                        el.classList.remove('focused');
+                    });
+                }, 3000);
+            }, 2000);
+        });
+    }
+
+    // Parallax effect for floating cards
+    const floatingCards = document.querySelectorAll('.float-card');
+    let ticking = false;
+
+    function updateParallax(e) {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+
+                floatingCards.forEach((card, index) => {
+                    const speed = (index + 1) * 15;
+                    const x = mouseX * speed;
+                    const y = mouseY * speed;
+                    const rotation = mouseX * 5;
+
+                    card.style.transform = `
+                            translateX(${x}px)
+                            translateY(${y}px)
+                            translateZ(${index * 20}px)
+                            rotateY(${rotation}deg)
+                        `;
+                });
+
+                ticking = false;
+            });
+
+            ticking = true;
+        }
+    }
+
+    document.addEventListener('mousemove', updateParallax);
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s ease-out;
+                pointer-events: none;
+            }
+
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+
+            .service-card, .approach-card {
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .loader {
+                transition: opacity 0.5s ease;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        `;
+    document.head.appendChild(style);
+
+    // Ripple effect for buttons
+    document.querySelectorAll('.btn, .submit-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+</script>
+<!--if (contactForm) {-->
+<!--contactForm.addEventListener('submit', (e) => {-->
+<!--e.preventDefault();-->
+
+<!--// Add submission animation-->
+<!--const submitBtn = contactForm.querySelector('.submit-btn');-->
+<!--submitBtn.innerHTML = 'Sending...';-->
+<!--submitBtn.disabled = true;-->
+
+<!--// Simulate form submission-->
+<!--setTimeout(() => {-->
+<!--submitBtn.innerHTML = 'Message Sent! ✓';-->
+<!--submitBtn.style.background = 'linear-gradient(135deg, #10B981, #34D399)';-->
+
+<!--// Reset form after delay-->
+<!--setTimeout(() => {-->
+<!--contactForm.reset();-->
+<!--submitBtn.innerHTML = 'Send Message';-->
+<!--submitBtn.style.background = '';-->
+<!--submitBtn.disabled = false;-->
+<!--}, 3000);-->
+<!--}, 2000);-->
+<!--});-->
+<!--}-->
+
+<!--// Parallax Effect on Mouse Move-->
+<!--document.addEventListener('mousemove', (e) => {-->
+<!--const mouseX = e.clientX / window.innerWidth;-->
+<!--const mouseY = e.clientY / window.innerHeight;-->
+
+<!--// Move floating cards-->
+<!--const floatingCards = document.querySelectorAll('.float-card');-->
+<!--floatingCards.forEach((card, index) => {-->
+<!--const speed = (index + 1) * 2;-->
+<!--const x = (mouseX - 0.5) * speed;-->
+<!--const y = (mouseY - 0.5) * speed;-->
+<!--card.style.transform = `translate(${x}px, ${y}px)`;-->
+<!--});-->
+<!--});-->
+
+<!--// Add typing effect to hero title-->
+<!--const heroTitle = document.querySelector('.hero-title');-->
+<!--if (heroTitle) {-->
+<!--const text = heroTitle.innerHTML;-->
+<!--heroTitle.innerHTML = '';-->
+<!--heroTitle.style.opacity = '1';-->
+
+<!--let index = 0;-->
+<!--const typeWriter = () => {-->
+<!--if (index < text.length) {-->
+<!--heroTitle.innerHTML = text.slice(0, index + 1);-->
+<!--index++;-->
+<!--setTimeout(typeWriter, 30);-->
+<!--}-->
+<!--};-->
+
+<!--setTimeout(typeWriter, 2500);-->
+<!--}-->
+
+<!--// Dynamic gradient animation-->
+<!--let gradientAngle = 0;-->
+<!--setInterval(() => {-->
+<!--gradientAngle = (gradientAngle + 1) % 360;-->
+<!--document.documentElement.style.setProperty('&#45;&#45;gradient-angle', gradientAngle + 'deg');-->
+<!--}, 50);-->
+
+<!--// Service cards hover effect-->
+<!--const serviceCards = document.querySelectorAll('.service-card');-->
+<!--serviceCards.forEach(card => {-->
+<!--card.addEventListener('mouseenter', function(e) {-->
+<!--const rect = this.getBoundingClientRect();-->
+<!--const x = e.clientX - rect.left;-->
+<!--const y = e.clientY - rect.top;-->
+
+<!--this.style.setProperty('&#45;&#45;x', `${x}px`);-->
+<!--this.style.setProperty('&#45;&#45;y', `${y}px`);-->
+<!--});-->
+<!--});-->
+
+<!--// Add ripple effect to buttons-->
+<!--document.querySelectorAll('.btn, .submit-btn').forEach(button => {-->
+<!--button.addEventListener('click', function(e) {-->
+<!--const ripple = document.createElement('span');-->
+<!--const rect = this.getBoundingClientRect();-->
+<!--const size = Math.max(rect.width, rect.height);-->
+<!--const x = e.clientX - rect.left - size / 2;-->
+<!--const y = e.clientY - rect.top - size / 2;-->
+
+<!--ripple.style.width = ripple.style.height = size + 'px';-->
+<!--ripple.style.left = x + 'px';-->
+<!--ripple.style.top = y + 'px';-->
+<!--ripple.classList.add('ripple');-->
+
+<!--this.appendChild(ripple);-->
+
+<!--setTimeout(() => {-->
+<!--ripple.remove();-->
+<!--}, 600);-->
+<!--});-->
+<!--});-->
+
+<!--// Add CSS for ripple effect-->
+<!--const style = document.createElement('style');-->
+<!--style.textContent = `-->
+<!--.ripple {-->
+<!--position: absolute;-->
+<!--border-radius: 50%;-->
+<!--background: rgba(255, 255, 255, 0.5);-->
+<!--transform: scale(0);-->
+<!--animation: ripple-animation 0.6s ease-out;-->
+<!--pointer-events: none;-->
+<!--}-->
+
+<!--@keyframes ripple-animation {-->
+<!--to {-->
+<!--transform: scale(4);-->
+<!--opacity: 0;-->
+<!--}-->
+<!--}-->
+<!--`;-->
+<!--document.head.appendChild(style);-->
+<!--</script>-->
